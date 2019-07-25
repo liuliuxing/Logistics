@@ -43,7 +43,7 @@ const http = axios.create({
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
   //return (process.env.NODE_ENV !== 'production' && process.env.OPEN_PROXY ? '/proxyApi/' : window.SITE_CONFIG.baseUrl) + actionName
-  alert(actionName);
+  // alert(actionName);
   return actionName
 }
 
@@ -56,7 +56,7 @@ http.adornParams = (params = {}, openDefultParams = true) => {
   var defaults = {
     't': new Date().getTime()
   }
-  alert(openDefultParams ? merge(defaults, params) : params);
+  // alert(openDefultParams ? merge(defaults, params) : params);
   return openDefultParams ? merge(defaults, params) : params
 }
 

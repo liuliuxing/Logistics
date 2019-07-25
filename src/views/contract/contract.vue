@@ -55,31 +55,32 @@
 				filters: {
 					name: ''
 				},
-				contractList: [{
-                    contractNum: 'SF20190728',
-                    partner: '顺丰集团',
-                    contractName: '顺丰2019-2020合同',
-                    versionNum: 'V-1.0',
-                    startDate: '2019-07-28',
-                    endDate: '2020-07-28',
-                    status: '1'
-                },{
-                    contractNum:'ST20190606',
-                    partner:'申通集团',
-                    contractName:'申通2019-2021合作细则',
-                    versionNum:'V-1.3',
-                    startDate:'2019-06-11',
-                    endDate:'2021-06-10',
-                    status:'0'
-                },{
-                    contractNum:'YD20191102',
-                    partner:'韵达集团',
-                    contractName:'韵达2019-2021合同',
-                    versionNum:'V-1.66',
-                    startDate:'2019-11-02',
-                    endDate:'2021-06-11',
-                    status:'0'
-				}],
+				contractList:[],
+				// contractList: [{
+                //     contractNum: 'SF20190728',
+                //     partner: '顺丰集团',
+                //     contractName: '顺丰2019-2020合同',
+                //     versionNum: 'V-1.0',
+                //     startDate: '2019-07-28',
+                //     endDate: '2020-07-28',
+                //     status: '1'
+                // },{
+                //     contractNum:'ST20190606',
+                //     partner:'申通集团',
+                //     contractName:'申通2019-2021合作细则',
+                //     versionNum:'V-1.3',
+                //     startDate:'2019-06-11',
+                //     endDate:'2021-06-10',
+                //     status:'0'
+                // },{
+                //     contractNum:'YD20191102',
+                //     partner:'韵达集团',
+                //     contractName:'韵达2019-2021合同',
+                //     versionNum:'V-1.66',
+                //     startDate:'2019-11-02',
+                //     endDate:'2021-06-11',
+                //     status:'0'
+				// }],
                 contractListLoading: false,
                 //takeEffect:'<span style="color: green" v-html="生效"></span>',
 			}
@@ -93,9 +94,9 @@
             getContractList() {
 			    this.contractListLoading = true
                 this.$http({
-                    url: this.$http.adornUrl('/contract/list'),
+                    url: this.$http.adornUrl('/api/contract/list'),
                     method: 'get',
-                    params: this.$http.adornUrl({
+                    params: this.$http.adornParams({
                         'name': this.filters.name
                     })
                 }).then(({data}) => {
@@ -143,7 +144,22 @@
 			}
 		},
 		mounted() {
-			this.getUsers();
+			// this.getUsers();
+			this.contractListLoading = true
+                this.$http({
+                    url: this.$http.adornUrl('/api/contract/list'),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                        'name': this.filters.name
+                    })
+                }).then(({data}) => {
+                    if(data && data.code ===0){
+                        this.contractList = data.contractList
+                    }else {
+                        this.contractList = []
+                    }
+                    this.contractListLoading = false
+                })
 		}
 	}
 
